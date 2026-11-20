@@ -1,0 +1,819 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Muhammad Bilal | Supply Chain &amp; Demand Planning</title>
+<meta name="description" content="Muhammad Bilal: supply chain and demand planning for e-commerce and CPG. Purchasing, forecasting, inventory, logistics, cost reduction, and supply chain tools.">
+<meta property="og:title" content="Muhammad Bilal | Supply Chain &amp; Demand Planning">
+<meta property="og:description" content="Purchasing, forecasting, inventory, logistics, and cost reduction for e-commerce and CPG brands.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: a sticky pill nav, a cobalt hero panel with a pallet of cartons, a bright results grid,
+   then full-width tinted bands (sky, peach, mint, white, sunshine) each holding one section. */
+*, *::before, *::after { box-sizing: border-box; }
+:root {
+  color-scheme: light;
+  --paper: #FFFDF8;
+  --white: #FFFFFF;
+  --ink: #10142B;
+  --muted: #4B5070;
+  --line: #E4E2EE;
+  --cobalt: #2B4BF2;
+  --cobalt-deep: #1B32B8;
+  --navy: #0F1A2E;
+  --hero: #DCEBFF;
+  --hero-circle: #C3D9FF;
+  --navy-soft: #1A2A47;
+  --sun: #FFD84D;
+  --mint: #7EE2B8;
+  --coral: #FF8A66;
+  --sky: #8EC5FF;
+  --lilac: #C9B6FF;
+  --lime: #D4F06B;
+  --tint-sky: #EAF1FF;
+  --tint-peach: #FFF0E6;
+  --tint-mint: #E6F9F0;
+  --tint-sun: #FFF6CF;
+  --font-display: "Space Grotesk", "Segoe UI", Arial, sans-serif;
+  --font-body: "Inter", "Segoe UI", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  --radius: 22px;
+}
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.6; -webkit-text-size-adjust: 100%; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--font-display); margin: 0; text-wrap: balance; letter-spacing: -0.02em; }
+p { margin: 0; }
+a { color: var(--cobalt); }
+button { font: inherit; }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px solid var(--cobalt); outline-offset: 3px; }
+
+/* Nav */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); background: var(--paper); z-index: 30; }
+.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; padding-block: 12px; background: color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter: blur(10px); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.brand { font-family: var(--font-display); font-weight: 700; font-size: 18px; color: var(--ink); text-decoration: none; white-space: nowrap; }
+.brand span { display: inline-block; width: 10px; height: 10px; border-radius: 3px; background: var(--coral); margin-right: 8px; transform: translateY(-1px); }
+.nav-links { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; background: var(--white); border: 1px solid var(--line); border-radius: 999px; padding: 4px; min-width: 0; }
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-links a { color: var(--muted); text-decoration: none; font-weight: 600; font-size: 14px; padding: 8px 14px; border-radius: 999px; white-space: nowrap; transition: background 0.2s, color 0.2s; }
+.nav-links a:hover { color: var(--ink); background: var(--tint-sky); }
+.nav-links a.active { background: var(--ink); color: var(--white); }
+
+/* Hero */
+.hero { margin-top: 8px; background: var(--hero); color: var(--ink); border-radius: 32px; padding: clamp(28px, 5vw, 56px); display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); gap: 32px; align-items: center; position: relative; overflow: hidden; }
+.hero::after { content: ""; position: absolute; inset: auto -80px -120px auto; width: 320px; height: 320px; border-radius: 50%; background: var(--hero-circle); }
+.hero-text { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 18px; }
+.status { align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; background: rgba(16,20,43,0.07); border-radius: 999px; padding: 6px 14px; font-size: 13.5px; font-weight: 600; }
+.status i { width: 8px; height: 8px; border-radius: 50%; background: #16A34A; box-shadow: 0 0 0 4px rgba(22,163,74,0.18); }
+.hero h1 { font-size: clamp(42px, 7vw, 76px); line-height: 0.98; font-weight: 700; }
+.hero .role { font-family: var(--font-display); font-size: clamp(19px, 2.4vw, 25px); font-weight: 600; color: var(--cobalt); line-height: 1.25; }
+.hero .pitch { font-size: 17.5px; max-width: 58ch; color: var(--muted); }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.btn { display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 20px; border-radius: 999px; border: 0; cursor: pointer; font-weight: 700; font-size: 15px; text-decoration: none; transition: transform 0.15s ease, box-shadow 0.15s ease; }
+.btn:hover { transform: translateY(-2px); }
+.btn-sun { background: var(--sun); color: var(--ink); box-shadow: 0 6px 0 #C9A21C; }
+.btn-ghost { background: transparent; color: var(--ink); border: 2px solid var(--ink); }
+.btn-ghost:hover { background: var(--white); }
+.hero-email { font-weight: 600; font-size: 15.5px; color: var(--ink); user-select: all; overflow-wrap: anywhere; }
+.copied { font-size: 13.5px; font-weight: 600; min-height: 1.4em; color: var(--cobalt); }
+
+/* Pallet of cartons (decorative) */
+.pallet { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 16px; background: rgba(255,255,255,0.6); border-radius: 22px; }
+.carton { min-height: 104px; border-radius: 14px; display: flex; align-items: flex-end; padding: 26px 14px 14px; font-family: var(--font-display); font-size: 17px; font-weight: 700; line-height: 1.2; color: var(--ink); transition: transform 0.25s ease; position: relative; }
+.carton::before { content: ""; position: absolute; left: 50%; top: 0; height: 16px; width: 22%; transform: translateX(-50%); background: rgba(16,20,43,0.14); border-radius: 0 0 5px 5px; }
+.carton:hover { transform: translateY(-6px) rotate(-2deg); }
+.c1 { background: var(--sun); } .c2 { background: var(--mint); } .c3 { background: var(--coral); }
+.c4 { background: var(--lilac); } .c5 { background: var(--lime); } .c6 { background: var(--sky); }
+.pallet-base { grid-column: 1 / -1; height: 14px; border-radius: 6px; background: repeating-linear-gradient(90deg, #C98B4B 0 26%, transparent 26% 37%); }
+@media (prefers-reduced-motion: no-preference) {
+  .carton { animation: bob 5s ease-in-out infinite; }
+  .c2 { animation-delay: 0.4s; } .c3 { animation-delay: 0.8s; } .c4 { animation-delay: 1.2s; } .c5 { animation-delay: 1.6s; } .c6 { animation-delay: 2s; }
+}
+@keyframes bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -4px; } }
+
+/* Results */
+.results { margin-top: 18px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.stat { border-radius: var(--radius); padding: 22px 22px 20px; display: flex; flex-direction: column; gap: 4px; transition: transform 0.2s ease; }
+.stat:hover { transform: translateY(-4px); }
+.stat .num { font-family: var(--font-display); font-weight: 700; font-size: clamp(38px, 5vw, 52px); line-height: 1; font-variant-numeric: tabular-nums; }
+.stat .what { font-weight: 700; font-size: 16px; }
+.stat .src { font-size: 13.5px; color: #2E3350; }
+.s1 { background: var(--sun); } .s2 { background: var(--mint); } .s3 { background: var(--sky); }
+.s4 { background: var(--coral); } .s5 { background: var(--lilac); } .s6 { background: var(--lime); }
+
+/* Bands and section heads */
+.band { margin-top: 72px; padding-block: 64px; }
+.band.sky { background: var(--tint-sky); } .band.peach { background: var(--tint-peach); } .band.mint { background: var(--tint-mint); } .band.sun { background: var(--tint-sun); }
+.band.plain { padding-block: 0; }
+.band + .band { margin-top: 0; }
+.head { display: flex; flex-direction: column; gap: 10px; max-width: 70ch; margin-bottom: 28px; }
+.eyebrow { align-self: flex-start; font-family: var(--font-mono); font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; background: var(--ink); color: var(--white); padding: 5px 12px; border-radius: 999px; }
+.head h2 { font-size: clamp(30px, 4vw, 44px); font-weight: 700; line-height: 1.05; }
+.head p { color: var(--muted); font-size: 17px; }
+
+/* Areas */
+.areas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.area { background: var(--white); border-radius: var(--radius); padding: 24px; display: flex; flex-direction: column; gap: 10px; border: 1px solid var(--line); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.area:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(43,75,242,0.12); }
+.area .dot { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; }
+.area .dot svg { width: 22px; height: 22px; }
+.area h3 { font-size: 20px; font-weight: 700; line-height: 1.2; }
+.area p { color: var(--muted); font-size: 15px; }
+.area ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; font-size: 14.5px; }
+.area li::marker { color: var(--cobalt); }
+
+/* Planning cycle (interactive) */
+.steps { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; }
+.step { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; text-align: left; background: var(--white); border: 2px solid transparent; border-radius: 18px; padding: 14px; cursor: pointer; color: var(--ink); min-height: 96px; transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease; }
+.step:hover { transform: translateY(-2px); border-color: var(--coral); }
+.step .n { font-family: var(--font-mono); font-size: 12.5px; font-weight: 600; color: var(--cobalt); }
+.step strong { font-family: var(--font-display); font-size: 16px; line-height: 1.2; }
+.step[aria-pressed="true"] { background: var(--ink); color: var(--white); border-color: var(--ink); }
+.step[aria-pressed="true"] .n { color: var(--sun); }
+.step-panel { margin-top: 14px; background: var(--white); border-radius: var(--radius); padding: 26px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; border: 1px solid var(--line); }
+.step-panel h3 { font-size: 24px; }
+.step-panel .lead { color: var(--muted); margin-top: 8px; }
+.step-panel ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.step-panel li { display: flex; gap: 10px; align-items: baseline; font-size: 15px; }
+.step-panel li::before { content: ""; width: 10px; height: 10px; border-radius: 3px; background: var(--coral); flex-shrink: 0; transform: translateY(1px); }
+.step-panel .label { font-family: var(--font-mono); font-size: 12.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--cobalt); margin-bottom: 10px; display: block; }
+
+/* Case studies */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; align-items: center; }
+.chip { border: 2px solid var(--ink); background: var(--white); color: var(--ink); border-radius: 999px; padding: 7px 16px; font-weight: 600; font-size: 14px; cursor: pointer; min-height: 40px; transition: background 0.15s ease; }
+.chip:hover { background: var(--tint-sun); }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--white); }
+.filter-count { font-size: 14px; color: var(--muted); margin-left: 6px; }
+.cases { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.case { background: var(--white); border-radius: var(--radius); padding: 26px; display: flex; flex-direction: column; gap: 14px; border: 1px solid var(--line); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.case:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(16,20,43,0.1); }
+.case.featured { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 24px; background: var(--ink); color: var(--white); border-color: var(--ink); }
+.case.featured .body p { color: #D5D9EE; }
+.case.featured .tag { background: rgba(255,255,255,0.14); color: var(--white); }
+.case.featured .big { color: var(--sun); }
+.case-main { display: flex; flex-direction: column; gap: 12px; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-family: var(--font-mono); font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: var(--tint-sky); color: var(--cobalt-deep); }
+.case h3 { font-size: 23px; line-height: 1.15; }
+.case .body { display: flex; flex-direction: column; gap: 8px; }
+.case .body p { font-size: 15px; color: var(--muted); }
+.outcomes { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; }
+.outcome { flex: 1 1 140px; border-radius: 16px; padding: 12px 14px; display: flex; flex-direction: column; gap: 2px; }
+.outcome b { font-family: var(--font-display); font-size: 28px; line-height: 1; font-variant-numeric: tabular-nums; }
+.outcome span { font-size: 13.5px; font-weight: 600; }
+.o-sun { background: var(--sun); } .o-mint { background: var(--mint); } .o-sky { background: var(--sky); } .o-coral { background: var(--coral); } .o-lilac { background: var(--lilac); } .o-lime { background: var(--lime); }
+.outcome.text { background: var(--tint-peach); }
+.outcome.text span { font-weight: 500; font-size: 14.5px; }
+.featured-side { display: flex; flex-direction: column; justify-content: center; gap: 14px; }
+.big { font-family: var(--font-display); font-weight: 700; font-size: clamp(52px, 7vw, 80px); line-height: 0.95; }
+.featured-side p { color: #D5D9EE; font-size: 15px; }
+.case[hidden] { display: none; }
+
+/* Experience */
+.jobs { display: flex; flex-direction: column; gap: 14px; }
+.job { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.job summary { list-style: none; cursor: pointer; padding: 22px 24px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px 20px; align-items: center; }
+.job summary::-webkit-details-marker { display: none; }
+.job summary:hover { background: var(--tint-sky); }
+.job h3 { font-size: 21px; line-height: 1.2; }
+.job .org { color: var(--cobalt); font-weight: 700; font-size: 15px; }
+.job .meta { font-family: var(--font-mono); font-size: 13px; color: var(--muted); }
+.job .toggle { width: 38px; height: 38px; border-radius: 50%; background: var(--sun); display: grid; place-items: center; transition: transform 0.2s ease; }
+.job[open] .toggle { transform: rotate(45deg); }
+.job .toggle svg { width: 18px; height: 18px; }
+.job-body { padding: 0 24px 24px; display: flex; flex-direction: column; gap: 10px; }
+.job-body .summary { color: var(--muted); }
+.job-body ul { margin: 0; padding-left: 20px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 28px; font-size: 15px; }
+.job-body li::marker { color: var(--coral); }
+.job.early h3 { font-size: 18px; }
+.job.early .job-body ul { grid-template-columns: minmax(0, 1fr); }
+.subhead { font-family: var(--font-display); font-size: 18px; font-weight: 700; margin: 18px 0 2px; color: var(--muted); }
+
+/* Education */
+.edu { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.edu-card { background: var(--white); border-radius: var(--radius); padding: 24px; border: 1px solid var(--line); display: flex; flex-direction: column; gap: 12px; }
+.edu-card h3 { font-size: 19px; }
+.edu-row { display: flex; flex-direction: column; gap: 2px; padding-top: 12px; border-top: 1px solid var(--line); }
+.edu-row strong { font-weight: 700; }
+.edu-row span { color: var(--muted); font-size: 14.5px; }
+.edu-row .yr { font-family: var(--font-mono); font-size: 12.5px; color: var(--cobalt); font-weight: 600; }
+
+/* Tools */
+.tool-groups { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.tool-group { background: var(--white); border-radius: var(--radius); padding: 22px; border: 1px solid var(--line); display: flex; flex-direction: column; gap: 12px; }
+.tool-group h3 { font-size: 17px; }
+.tool-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.tool { font-size: 14px; font-weight: 600; padding: 7px 12px; border-radius: 10px; transition: transform 0.15s ease; }
+.tool:hover { transform: translateY(-2px) rotate(-1deg); }
+.tg1 .tool { background: var(--tint-sun); } .tg2 .tool { background: var(--tint-mint); } .tg3 .tool { background: var(--tint-sky); }
+.tg4 .tool { background: var(--tint-peach); } .tg5 .tool { background: #F1EBFF; }
+
+/* Contact */
+.contact { margin-block: 72px 32px; background: var(--hero); color: var(--ink); border-radius: 32px; padding: clamp(28px, 5vw, 56px); display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 28px; align-items: center; }
+.contact h2 { font-size: clamp(32px, 5vw, 52px); line-height: 1; }
+.contact p { color: var(--muted); margin-top: 12px; max-width: 52ch; }
+.contact-box { background: var(--white); color: var(--ink); border-radius: var(--radius); padding: 22px; display: flex; flex-direction: column; gap: 12px; }
+.contact-row { display: flex; flex-direction: column; gap: 2px; }
+.contact-row .k { font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: var(--cobalt); text-transform: uppercase; letter-spacing: 0.06em; }
+.contact-row .v { font-weight: 600; overflow-wrap: anywhere; user-select: all; }
+.contact-box .btn-sun { align-self: flex-start; box-shadow: 0 5px 0 #C9A21C; }
+footer { padding-block: 0 40px; font-size: 13.5px; color: var(--muted); }
+
+/* Responsive */
+@media (max-width: 960px) {
+  .hero { grid-template-columns: minmax(0, 1fr); }
+  .pallet { max-width: 480px; }
+  .areas, .tool-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .case.featured { grid-template-columns: minmax(0, 1fr); }
+  .contact { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 640px) {
+  .brand { display: none; }
+  .nav-links { width: 100%; }
+  .carton { min-height: 88px; font-size: 15px; }
+  .results { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .areas, .tool-groups, .cases, .edu { grid-template-columns: minmax(0, 1fr); }
+  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .step-panel { grid-template-columns: minmax(0, 1fr); padding: 20px; }
+  .job summary { grid-template-columns: minmax(0, 1fr) auto; padding: 18px; }
+  .job-body { padding: 0 18px 18px; }
+  .job-body ul { grid-template-columns: minmax(0, 1fr); }
+  .band { margin-top: 48px; padding-block: 44px; }
+  .stat { padding: 18px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .carton, .stat, .area, .case, .btn, .step, .tool { transition: none; animation: none; }
+}
+@media print {
+  .nav, .filters, .hero-actions, .pallet, .copied { display: none !important; }
+  .case[hidden] { display: flex !important; }
+  .band { margin-top: 24px; padding-block: 24px; }
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Sections">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top"><span aria-hidden="true"></span>Muhammad Bilal</a>
+    <div class="nav-links">
+      <a href="#results">Results</a>
+      <a href="#work">What I Do</a>
+      <a href="#process">How I Work</a>
+      <a href="#cases">Case Studies</a>
+      <a href="#experience">Experience</a>
+      <a href="#tools">Tools</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap" id="top">
+  <header class="hero">
+    <div class="hero-text">
+      <span class="status"><i aria-hidden="true"></i>Open to remote roles and projects</span>
+      <h1>Muhammad Bilal</h1>
+      <p class="role">Supply Chain and Demand Planning for E&#8209;Commerce and CPG</p>
+      <p class="pitch">I keep products in stock without tying up cash in inventory that doesn't move. Since 2022 I've run purchasing, demand planning, inventory, and logistics for multi-channel brands on Amazon and Shopify, and built the tools that make that work faster and cheaper.</p>
+      <div class="hero-actions">
+        <button class="btn btn-sun" type="button" data-copy="muhammadbilal.nust1@gmail.com" data-status="status-hero">Copy Email</button>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/muhammad-billal/" target="_blank" rel="noopener">LinkedIn Profile</a>
+        <span class="hero-email">muhammadbilal.nust1@gmail.com</span>
+        <span class="copied" id="status-hero" role="status" aria-live="polite"></span>
+      </div>
+    </div>
+    <div class="pallet" aria-label="Areas of expertise">
+      <div class="carton c1">Inventory Management &amp; Demand Planning</div>
+      <div class="carton c2">FBA, Shopify &amp; TikTok</div>
+      <div class="carton c3">Warehousing &amp; 3PL</div>
+      <div class="carton c4">Logistics &amp; Shipping</div>
+      <div class="carton c5">Supplier Management</div>
+      <div class="carton c6">Process Improvement</div>
+      <div class="pallet-base"></div>
+    </div>
+  </header>
+
+  <section id="results" class="results" aria-label="Results">
+    <div class="stat s1"><span class="num" data-to="65" data-prefix="$" data-suffix="K+">$65K+</span><span class="what">Saved on FBA Storage</span><span class="src">Storage and aged inventory costs, via an FBA storage estimation tool</span></div>
+    <div class="stat s2"><span class="num" data-to="40" data-suffix="%">40%</span><span class="what">Fewer Stockouts</span><span class="src">Forecasting and inventory framework</span></div>
+    <div class="stat s3"><span class="num" data-to="20" data-suffix="%">20%</span><span class="what">Lower Supply Chain Costs</span><span class="src">End-to-end planning model</span></div>
+    <div class="stat s4"><span class="num" data-to="15" data-suffix="%">15%</span><span class="what">Lower Logistics Costs</span><span class="src">Master carton optimization</span></div>
+    <div class="stat s5"><span class="num" data-to="25" data-suffix="%">25%</span><span class="what">Lower Transportation Costs</span><span class="src">Carrier and distribution redesign</span></div>
+    <div class="stat s6"><span class="num" data-to="98" data-suffix="%">98%</span><span class="what">On-Time Delivery</span><span class="src">Shipment coordination</span></div>
+  </section>
+</div>
+
+<section id="work" class="band sky" aria-labelledby="work-h">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">What I Do</span>
+      <h2 id="work-h">Six Areas I've Owned</h2>
+    </div>
+    <div class="areas">
+      <div class="area">
+        <span class="dot" style="background: var(--sun)"><svg viewBox="0 0 24 24" fill="none" stroke="#10142B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6l1 4H8l1-4z"/><rect x="4" y="7" width="16" height="14" rx="2"/><path d="M9 12h6M9 16h4"/></svg></span>
+        <h3>Purchasing and Supplier Management</h3>
+        <p>Purchasing end to end, from deciding what to order to getting suppliers and forwarders paid.</p>
+        <ul>
+          <li>Place POs with overseas suppliers and follow production through to shipment</li>
+          <li>Run reorder reviews with brand managers before each buy</li>
+          <li>Handle new product launches, samples, and packaging with suppliers</li>
+          <li>Coordinate PO, vendor, and forwarder payments with finance</li>
+        </ul>
+      </div>
+      <div class="area">
+        <span class="dot" style="background: var(--mint)"><svg viewBox="0 0 24 24" fill="none" stroke="#10142B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20h18"/><path d="M5 16l4-5 4 3 6-8"/><path d="M15 6h4v4"/></svg></span>
+        <h3>Demand Planning and Forecasting</h3>
+        <p>Forecasts by SKU and channel that the buying plan is built on.</p>
+        <ul>
+          <li>Forecast from sales history, trends, and seasonality by SKU and channel</li>
+          <li>Build scenarios when demand shifts or a supplier hits a capacity limit</li>
+          <li>Compare forecasts with actual sales and re-plan before the next buy</li>
+        </ul>
+      </div>
+      <div class="area">
+        <span class="dot" style="background: var(--coral)"><svg viewBox="0 0 24 24" fill="none" stroke="#10142B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8l9-5 9 5v8l-9 5-9-5V8z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg></span>
+        <h3>Inventory Management</h3>
+        <p>Enough stock to keep selling, without paying to store stock that sits.</p>
+        <ul>
+          <li>Set order timing and quantities from stock cover, lead times, and open POs</li>
+          <li>Find high-volume, slow-selling SKUs that drive FBA storage and aged inventory fees</li>
+          <li>Manage FBA capacity requests and restock low-stock listings across several seller accounts</li>
+          <li>Coordinate stock across Amazon FBA and 3PL warehouses in the US and EU</li>
+        </ul>
+      </div>
+      <div class="area">
+        <span class="dot" style="background: var(--sky)"><svg viewBox="0 0 24 24" fill="none" stroke="#10142B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 7h11v9H2z"/><path d="M13 10h4l3 3v3h-7"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg></span>
+        <h3>Logistics and Imports</h3>
+        <p>Getting stock from the factory to the warehouse on time and at the right cost.</p>
+        <ul>
+          <li>Coordinate freight forwarders, customs brokers, and 3PLs from origin to warehouse</li>
+          <li>Choose DDP or DDU for each shipment after comparing rates, duties, and the impact on COGS</li>
+          <li>Optimize master cartons to cut the volume (CBM) each shipment takes up</li>
+        </ul>
+      </div>
+      <div class="area">
+        <span class="dot" style="background: var(--lilac)"><svg viewBox="0 0 24 24" fill="none" stroke="#10142B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span>
+        <h3>Product and Cost Data</h3>
+        <p>Clean SKU and cost data, so forecasts, POs, and margins can be trusted.</p>
+        <ul>
+          <li>Maintain the supplier master data sheet and SKU costs</li>
+          <li>Track landed costs, including freight and duties</li>
+          <li>Test supply chain data and tasks for the Odoo ERP go-live</li>
+        </ul>
+      </div>
+      <div class="area">
+        <span class="dot" style="background: var(--lime)"><svg viewBox="0 0 24 24" fill="none" stroke="#10142B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4 2.6-2.6z"/></svg></span>
+        <h3>Supply Chain Tools and Automation</h3>
+        <p>Tools that replace manual work and find savings in the data.</p>
+        <ul>
+          <li>FBA storage estimation tool that flags costly slow movers</li>
+          <li>Master carton optimization tool for box sizes and units per carton</li>
+          <li>SP-API tool that creates FBA inbound shipments, labels, and packing lists</li>
+          <li>Planning models and dashboards in Excel, Google Sheets, Power BI, SQL, and BigQuery</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="process" class="band peach" aria-labelledby="process-h">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">How I Work</span>
+      <h2 id="process-h">The Planning Cycle I Run</h2>
+      <p>Tap a step to see what I look at.</p>
+    </div>
+    <div class="steps" role="group" aria-label="Planning cycle steps">
+      <button class="step" type="button" aria-pressed="true" data-step="0"><span class="n">01</span><strong>Read the Sales</strong></button>
+      <button class="step" type="button" aria-pressed="false" data-step="1"><span class="n">02</span><strong>Forecast Demand</strong></button>
+      <button class="step" type="button" aria-pressed="false" data-step="2"><span class="n">03</span><strong>Plan the Buy</strong></button>
+      <button class="step" type="button" aria-pressed="false" data-step="3"><span class="n">04</span><strong>Place POs</strong></button>
+      <button class="step" type="button" aria-pressed="false" data-step="4"><span class="n">05</span><strong>Ship and Receive</strong></button>
+      <button class="step" type="button" aria-pressed="false" data-step="5"><span class="n">06</span><strong>Review and Re-Plan</strong></button>
+    </div>
+    <div class="step-panel" aria-live="polite">
+      <div>
+        <h3 id="step-title">Read the Sales</h3>
+        <p class="lead" id="step-lead">Pull sales by SKU and channel from Amazon and Shopify and look at how each item is really moving.</p>
+      </div>
+      <div>
+        <span class="label">What I check</span>
+        <ul id="step-list">
+          <li>Units sold by SKU and channel</li>
+          <li>Trends, seasonality, and changes in sales velocity</li>
+          <li>Days out of stock that hide real demand</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cases" class="band mint" aria-labelledby="cases-h">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">Case Studies</span>
+      <h2 id="cases-h">Selected Work</h2>
+    </div>
+    <div class="filters" role="group" aria-label="Filter case studies">
+      <button class="chip" type="button" aria-pressed="true" data-filter="all">All</button>
+      <button class="chip" type="button" aria-pressed="false" data-filter="savings">Cost Savings</button>
+      <button class="chip" type="button" aria-pressed="false" data-filter="inventory">Inventory</button>
+      <button class="chip" type="button" aria-pressed="false" data-filter="planning">Demand Planning</button>
+      <button class="chip" type="button" aria-pressed="false" data-filter="logistics">Logistics</button>
+      <button class="chip" type="button" aria-pressed="false" data-filter="data">Product Data</button>
+      <span class="filter-count" id="filter-count" aria-live="polite">7 case studies</span>
+    </div>
+    <div class="cases">
+
+      <article class="case featured" data-tags="savings inventory">
+        <div class="case-main">
+          <div class="tags"><span class="tag">Inventory</span><span class="tag">Cost savings</span><span class="tag">Amazon FBA</span></div>
+          <h3>FBA Storage Cost Estimation Tool</h3>
+          <div class="body">
+            <p>Built a storage estimation tool for Amazon FBA that shows which items carry high storage and holding costs because they take up a lot of space and sell slowly.</p>
+            <p>Shared the list with brand management and worked with them on plans to increase sales of those items, bringing down storage fees and aged inventory costs.</p>
+          </div>
+        </div>
+        <div class="featured-side">
+          <span class="big">$65K+</span>
+          <p>Saved in FBA storage and aged inventory costs.</p>
+        </div>
+      </article>
+
+      <article class="case" data-tags="savings logistics">
+        <div class="tags"><span class="tag">Logistics</span><span class="tag">Cost savings</span></div>
+        <h3>Master Carton Optimization</h3>
+        <div class="body">
+          <p>Built a master carton optimization tool that works out better carton sizes and units per carton for each product.</p>
+          <p>The new cartons take up less volume (CBM) per shipment and are easier to handle in transit and at the warehouse.</p>
+        </div>
+        <div class="outcomes">
+          <div class="outcome o-sun"><b>15%</b><span>lower logistics costs</span></div>
+          <div class="outcome text"><span>Lower CBM per shipment and better product handling</span></div>
+        </div>
+      </article>
+
+      <article class="case" data-tags="planning inventory savings">
+        <div class="tags"><span class="tag">Demand planning</span><span class="tag">Inventory</span></div>
+        <h3>Forecasting and Replenishment Framework</h3>
+        <div class="body">
+          <p>Built forecasts by SKU and channel from sales history, trends, and seasonality, and linked them to stock cover, lead times, open POs, and production schedules.</p>
+          <p>Led the cross-functional team that rolled it out, with scenario plans for demand shifts and supplier capacity limits.</p>
+        </div>
+        <div class="outcomes">
+          <div class="outcome o-mint"><b>40%</b><span>fewer stockouts</span></div>
+          <div class="outcome o-sky"><b>20%</b><span>lower supply chain costs</span></div>
+        </div>
+      </article>
+
+      <article class="case" data-tags="logistics savings">
+        <div class="tags"><span class="tag">Logistics</span><span class="tag">Imports</span></div>
+        <h3>Choosing DDP or DDU for Each Shipment</h3>
+        <div class="body">
+          <p>Compared DDP forwarder rates with DDU shipping through Amazon Global Logistics, including duties and the impact on landed cost and COGS.</p>
+          <p>Switched low-duty items to DDU through AGL to lower freight costs, with a US LLC as importer of record. Items where DDP works out cheaper stay on DDP.</p>
+        </div>
+        <div class="outcomes">
+          <div class="outcome text"><span>Lower freight costs on low-duty items, and every shipment goes the cheaper way</span></div>
+        </div>
+      </article>
+
+      <article class="case" data-tags="logistics savings">
+        <div class="tags"><span class="tag">Logistics</span></div>
+        <h3>Carrier and Distribution Redesign</h3>
+        <div class="body">
+          <p>Reviewed how stock moved across domestic and international routes, then changed carrier selection and distribution processes.</p>
+          <p>Set up order management, fulfillment tracking, and visibility so delays showed up early.</p>
+        </div>
+        <div class="outcomes">
+          <div class="outcome o-coral"><b>25%</b><span>lower transport costs</span></div>
+          <div class="outcome o-lilac"><b>15%</b><span>better on-time delivery</span></div>
+          <div class="outcome o-lime"><b>20%</b><span>faster order processing</span></div>
+        </div>
+      </article>
+
+      <article class="case" data-tags="data">
+        <div class="tags"><span class="tag">Product data</span><span class="tag">ERP</span></div>
+        <h3>Product Data for an ERP Go-Live</h3>
+        <div class="body">
+          <p>Maintain the supplier master data sheet, SKU costs, and landed cost tracking that purchasing and finance rely on.</p>
+          <p>For the move to Odoo ERP, I test the supply chain tasks against the loaded data and work through the gaps before go-live.</p>
+        </div>
+        <div class="outcomes">
+          <div class="outcome text"><span>Forecasts, POs, and margin reports built on SKU and cost data that can be trusted</span></div>
+        </div>
+      </article>
+
+      <article class="case" data-tags="logistics savings">
+        <div class="tags"><span class="tag">Logistics</span><span class="tag">2022–2024</span></div>
+        <h3>Shipment Coordination at Volume</h3>
+        <div class="body">
+          <p>Planned shipments and replenishment, prepared customs documentation, and scheduled deliveries for high-volume domestic and international orders.</p>
+          <p>Negotiated with suppliers and 3PLs and worked with forwarders and customs brokers to clear problems quickly.</p>
+        </div>
+        <div class="outcomes">
+          <div class="outcome o-sun"><b>98%</b><span>on-time delivery</span></div>
+          <div class="outcome o-mint"><b>35%</b><span>lower COGS</span></div>
+          <div class="outcome o-sky"><b>20%</b><span>fewer delays</span></div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section id="experience" class="band" aria-labelledby="exp-h">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">Experience</span>
+      <h2 id="exp-h">Where I've Worked</h2>
+      <p>Tap a role to open or close it.</p>
+    </div>
+    <div class="jobs">
+      <details class="job" open>
+        <summary>
+          <div>
+            <h3>Senior Supply Chain &amp; Inventory Manager</h3>
+            <span class="org">Omnisec Solution LLC</span>
+            <div class="meta">Apr 2024 – Present · Remote</div>
+          </div>
+          <span class="toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#10142B" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+        </summary>
+        <div class="job-body">
+          <p class="summary">Own purchasing, demand planning, inventory, and logistics for multi-channel e-commerce brands selling on Amazon and Shopify.</p>
+          <ul>
+            <li>Build rolling forecasts by SKU and channel from sales history, trends, and seasonality, and turn them into reorder plans based on stock cover, lead times, and open POs.</li>
+            <li>Place POs with overseas suppliers, run reorder reviews with brand managers, and follow production through to shipment.</li>
+            <li>Built a forecasting and inventory framework and an end-to-end planning model, cutting stockouts by 40% and supply chain costs by 20%.</li>
+            <li>Built an FBA storage estimation tool that flags high-volume, slow-selling items; worked with brand management to lift their sales, saving more than $65,000 in storage and aged inventory costs.</li>
+            <li>Built a master carton optimization tool that reduced shipment CBM, cutting logistics costs by 15% and improving product handling.</li>
+            <li>Manage FBA capacity requests and restocking across several Amazon US seller accounts, and coordinate stock with 3PL warehouses in the US and EU.</li>
+            <li>Compare DDP and DDU rates and COGS impact for each shipment; switched low-duty items to DDU through Amazon Global Logistics to lower freight costs.</li>
+            <li>Redesigned carrier strategy and distribution processes, cutting transportation costs by 25% and improving on-time delivery by 15%.</li>
+            <li>Handle new product launches, including samples and packaging, and coordinate PO, vendor, and forwarder payments with finance.</li>
+            <li>Maintain the supplier master data sheet, SKU costs, and landed cost tracking, and handle the supply chain side of the Odoo ERP go-live.</li>
+            <li>Built a tool on Amazon's SP-API that creates FBA inbound shipments, labels, and packing lists from SKU and box inputs.</li>
+            <li>Planned the move of inventory off Flexport to a new warehouse to remove fixed monthly minimum fees.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="job" open>
+        <summary>
+          <div>
+            <h3>Supply Chain and Logistics Coordinator</h3>
+            <span class="org">Ecomstore LLC</span>
+            <div class="meta">May 2022 – Mar 2024 · Lahore, Pakistan</div>
+          </div>
+          <span class="toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#10142B" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+        </summary>
+        <div class="job-body">
+          <p class="summary">Ran day-to-day supply chain and logistics operations for an e-commerce business.</p>
+          <ul>
+            <li>Carried out demand planning and forecasting, placed POs, and kept products available.</li>
+            <li>Monitored and improved supply chain KPIs across purchasing, shipping, and delivery.</li>
+            <li>Coordinated shipment planning, replenishment, customs documentation, and delivery scheduling, achieving a 98% on-time delivery rate.</li>
+            <li>Negotiated with suppliers and 3PLs, and worked with freight forwarders and customs brokers to resolve issues, reducing shipment delays by 20% and COGS by 35%.</li>
+            <li>Managed warehousing, 3PL, and high-volume inbound and outbound shipping, improving order fulfillment efficiency by 20%.</li>
+            <li>Optimized carrier selection, shipment planning, and freight execution for domestic and international orders.</li>
+            <li>Handled customs clearance paperwork and tracked delivery timelines for international shipments.</li>
+          </ul>
+        </div>
+      </details>
+
+      <p class="subhead">Earlier Roles</p>
+
+      <details class="job early">
+        <summary>
+          <div>
+            <h3>Automation Design Engineer</h3>
+            <span class="org">Aprol Pvt Ltd</span>
+            <div class="meta">Nov 2020 – May 2021 · Lahore, Pakistan</div>
+          </div>
+          <span class="toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#10142B" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+        </summary>
+        <div class="job-body">
+          <ul>
+            <li>Designed PLC-based automation systems for industrial processes.</li>
+            <li>Installed the systems, taking them from design through to working installation.</li>
+            <li>Carried out instrumentation and calibration of industrial sensors and weighing scales.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="job early">
+        <summary>
+          <div>
+            <h3>Trainee Engineer</h3>
+            <span class="org">Power Dynamic Automation</span>
+            <div class="meta">Aug 2019 – Sep 2019 · Gujranwala, Pakistan</div>
+          </div>
+          <span class="toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#10142B" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+        </summary>
+        <div class="job-body">
+          <ul>
+            <li>Designed and evaluated technical processes as part of the engineering team.</li>
+            <li>Documented technical processes, recording how each one worked and how it was assessed.</li>
+            <li>Designed and tested process control systems.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="job early">
+        <summary>
+          <div>
+            <h3>Supply Chain Trainee</h3>
+            <span class="org">Master Ball Point Pvt. Ltd</span>
+            <div class="meta">Jun 2019 – Jul 2019 · Gujranwala, Pakistan</div>
+          </div>
+          <span class="toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#10142B" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+        </summary>
+        <div class="job-body">
+          <ul>
+            <li>Documented outgoing shipments in line with the delivery schedule.</li>
+            <li>Supervised shipments to keep dispatch on track against agreed delivery dates.</li>
+            <li>Handled inbound and outbound shipping operations, from receiving goods to dispatching orders.</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="band sky" aria-labelledby="edu-h">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">Background</span>
+      <h2 id="edu-h">Education and Certifications</h2>
+    </div>
+    <div class="edu">
+      <div class="edu-card">
+        <h3>Education</h3>
+        <div class="edu-row"><span class="yr">2023 – 2025</span><strong>MS, Supply Chain and Retail Management</strong><span>Lahore University of Management Sciences (LUMS)</span></div>
+        <div class="edu-row"><span class="yr">2016 – 2020</span><strong>BS, Mechatronics Engineering</strong><span>National University of Sciences and Technology (NUST)</span></div>
+      </div>
+      <div class="edu-card">
+        <h3>Certifications</h3>
+        <div class="edu-row"><strong>Fundamentals of Supply Chain and Logistics</strong></div>
+        <div class="edu-row"><strong>Industrial Automation (PLC, HMI, SCADA)</strong></div>
+        <div class="edu-row"><strong>Microsoft Office Professional</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tools" class="band sun" aria-labelledby="tools-h">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">Tools</span>
+      <h2 id="tools-h">What I Work In</h2>
+    </div>
+    <div class="tool-groups">
+      <div class="tool-group tg1">
+        <h3>Planning and Analytics</h3>
+        <div class="tool-list"><span class="tool">Microsoft Excel</span><span class="tool">Google Sheets</span><span class="tool">Power BI</span><span class="tool">SQL</span><span class="tool">BigQuery</span></div>
+      </div>
+      <div class="tool-group tg2">
+        <h3>ERP and Inventory</h3>
+        <div class="tool-list"><span class="tool">NetSuite</span><span class="tool">Odoo</span><span class="tool">Warehouse Management Systems</span></div>
+      </div>
+      <div class="tool-group tg3">
+        <h3>Marketplaces</h3>
+        <div class="tool-list"><span class="tool">Amazon Seller Central</span><span class="tool">Amazon FBA</span><span class="tool">Shopify</span><span class="tool">Amazon SP-API</span></div>
+      </div>
+      <div class="tool-group tg4">
+        <h3>Logistics and Freight</h3>
+        <div class="tool-list"><span class="tool">Amazon Global Logistics</span><span class="tool">Flexport</span><span class="tool">Send to Amazon</span><span class="tool">3PL Warehouses (US and EU)</span></div>
+      </div>
+      <div class="tool-group tg5">
+        <h3>Collaboration</h3>
+        <div class="tool-list"><span class="tool">ClickUp</span><span class="tool">Asana</span><span class="tool">Slack</span><span class="tool">Microsoft Office</span></div>
+      </div>
+      <div class="tool-group tg1">
+        <h3>Tools I've Built</h3>
+        <div class="tool-list"><span class="tool">FBA Storage Estimator</span><span class="tool">Master Carton Optimizer</span><span class="tool">FBA Shipment Creator</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <section id="contact" class="contact" aria-labelledby="contact-h">
+    <div>
+      <h2 id="contact-h">Let's Talk</h2>
+      <p>Whether you're hiring for a supply chain role or need help with purchasing, planning, inventory, or logistics, I'd be glad to hear what you're working on.</p>
+    </div>
+    <div class="contact-box">
+      <div class="contact-row"><span class="k">Email</span><span class="v">muhammadbilal.nust1@gmail.com</span></div>
+      <div class="contact-row"><span class="k">Phone</span><span class="v">+1 917 813 6704 &amp; +92 308 9226763</span></div>
+      <div class="contact-row"><span class="k">Location</span><span class="v">Pakistan · Open to remote work</span></div>
+      <button class="btn btn-sun" type="button" data-copy="muhammadbilal.nust1@gmail.com" data-status="status-contact">Copy Email</button>
+      <span class="copied" id="status-contact" role="status" aria-live="polite" style="color: var(--cobalt)"></span>
+    </div>
+  </section>
+  <footer>Muhammad Bilal · Supply Chain and Demand Planning</footer>
+</div>
+
+<script>
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Copy email */
+  document.querySelectorAll('[data-copy]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var status = document.getElementById(btn.dataset.status);
+      var text = btn.dataset.copy;
+      function fallback() { status.textContent = text; }
+      try {
+        navigator.clipboard.writeText(text).then(function () { status.textContent = 'Email copied'; }, fallback);
+      } catch (e) { fallback(); }
+    });
+  });
+
+  /* Count-up on the results when they scroll into view */
+  var nums = document.querySelectorAll('.num[data-to]');
+  if (!reduce && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target; io.unobserve(el);
+        var to = parseFloat(el.dataset.to), pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
+        var start = performance.now(), dur = 900;
+        function tick(now) {
+          var t = Math.min(1, (now - start) / dur);
+          var eased = 1 - Math.pow(1 - t, 3);
+          el.textContent = pre + Math.round(to * eased) + suf;
+          if (t < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      });
+    }, { threshold: 0.6 });
+    nums.forEach(function (n) { io.observe(n); });
+  }
+
+  /* Planning cycle steps */
+  var steps = [
+    { t: 'Read the Sales', l: 'Pull sales by SKU and channel from Amazon and Shopify and look at how each item is really moving.', c: ['Units sold by SKU and channel', 'Trends, seasonality, and changes in sales velocity', 'Days out of stock that hide real demand'] },
+    { t: 'Forecast Demand', l: 'Turn the sales picture into expected units by SKU and market for the coming months.', c: ['Baseline forecast from history, trend, and seasonality', 'New launches and SKUs without sales history', 'Scenarios for demand shifts'] },
+    { t: 'Plan the Buy', l: 'Work out what to order, how much, and when, so stock arrives before it runs out.', c: ['Weeks of stock cover against supplier lead times', 'Open POs and production schedules', 'Storage and holding cost of buying too much'] },
+    { t: 'Place POs', l: 'Agree quantities and dates with each manufacturer and get the order moving.', c: ['Order quantities and ship dates', 'Master carton sizes and units per carton', 'Payments to suppliers and forwarders with finance'] },
+    { t: 'Ship and Receive', l: 'Move the goods from the factory to Amazon FBA or the 3PL at the right cost.', c: ['DDP or DDU, based on rates, duties, and COGS', 'Forwarders, customs brokers, and delivery timelines', 'FBA inbound shipments and 3PL receiving'] },
+    { t: 'Review and Re-Plan', l: 'Check how the plan performed and feed what I learn into the next forecast.', c: ['Stockouts and in-stock rate', 'Aged inventory and FBA storage fees', 'Landed cost per SKU'] }
+  ];
+  var stepBtns = document.querySelectorAll('.step');
+  var title = document.getElementById('step-title'), lead = document.getElementById('step-lead'), list = document.getElementById('step-list');
+  stepBtns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var s = steps[+b.dataset.step];
+      stepBtns.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      title.textContent = s.t; lead.textContent = s.l;
+      list.innerHTML = '';
+      s.c.forEach(function (item) { var li = document.createElement('li'); li.textContent = item; list.appendChild(li); });
+    });
+  });
+
+  /* Case study filters */
+  var chips = document.querySelectorAll('.chip');
+  var cases = document.querySelectorAll('.case');
+  var count = document.getElementById('filter-count');
+  chips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      var f = chip.dataset.filter, shown = 0;
+      chips.forEach(function (c) { c.setAttribute('aria-pressed', c === chip ? 'true' : 'false'); });
+      cases.forEach(function (c) {
+        var match = f === 'all' || c.dataset.tags.split(' ').indexOf(f) !== -1;
+        c.hidden = !match; if (match) shown++;
+      });
+      count.textContent = shown + (shown === 1 ? ' case study' : ' case studies');
+    });
+  });
+
+  /* Highlight the current section in the nav */
+  var links = document.querySelectorAll('.nav-links a');
+  if ('IntersectionObserver' in window) {
+    var secIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        links.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id); });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    ['results', 'work', 'process', 'cases', 'experience', 'tools', 'contact'].forEach(function (id) {
+      var el = document.getElementById(id); if (el) secIO.observe(el);
+    });
+  }
+
+  /* Open every role when printing */
+  window.addEventListener('beforeprint', function () { document.querySelectorAll('details').forEach(function (d) { d.open = true; }); });
+})();
+</script>
+</body>
+</html>
